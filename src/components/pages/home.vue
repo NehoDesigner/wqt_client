@@ -1,33 +1,60 @@
 <template>
 	<div id="home">
 		<div class="home-bg">
-			<div class="home-login">
-				<div class="login-title">
-					<p>账号密码登陆</p>
-				</div>
-				<div class="login-btn">
-					<i class="iconfont">&#xe673;</i>
-					<input type="text" placeholder="请输入账号" v-model='user.account' />
-				</div>
-				<div class="login-btn">
-					<i class="iconfont">&#xe633;</i>
-					<input type="text" placeholder="请输入密码" v-model='user.psw' />
-				</div>
-				<div class="login-submit" @click="userLogin()">
-					<span>登陆</span>
-				</div>
-				<div class="login-way">
-					<div class="way-auth">
-						<i class="iconfont">&#xe623;</i>
+			<transition name="custom-classes-transition" leave-active-class="animated bounceOutRight">
+				<div class="home-login" v-if="loginVisible">
+					<div class="login-title">
+						<p>账号密码登陆</p>
 					</div>
-					<div class="way-auth">
-						<i class="iconfont">&#xe67c;</i>
+					<div class="login-btn">
+						<i class="iconfont">&#xe673;</i>
+						<input type="text" placeholder="请输入账号" v-model='user.account' />
 					</div>
-					<div class="way-regist">
-						<span>立即注册</span>
+					<div class="login-btn">
+						<i class="iconfont">&#xe633;</i>
+						<input type="password" placeholder="请输入密码" v-model='user.psw' />
+					</div>
+					<div class="login-submit" @click="userLogin()">
+						<span>登陆</span>
+					</div>
+					<div class="login-way">
+						<div class="way-auth">
+							<i class="iconfont">&#xe623;</i>
+						</div>
+						<div class="way-auth">
+							<i class="iconfont">&#xe67c;</i>
+						</div>
+						<div class="way-regist">
+							<span @click="toggle()">立即注册</span>
+						</div>
 					</div>
 				</div>
-			</div>
+			</transition>
+			<transition name="custom-classes-transition" enter-active-class="animated zoomIn">
+				<div class="home-regist" v-if="!loginVisible">
+					<div class="regist-title">
+						<p>用户注册</p>
+					</div>
+					<div class="regist-btn">
+						<i class="iconfont">&#xe673;</i>
+						<input type="text" placeholder="请输入账号" v-model='user.account' />
+					</div>
+					<div class="regist-btn">
+						<i class="iconfont">&#xe633;</i>
+						<input type="password" placeholder="请输入密码" v-model='user.psw' />
+					</div>
+					<div class="regist-btn">
+						<i class="iconfont">&#xe633;</i>
+						<input type="password" placeholder="确认密码" v-model='user.confirm' />
+					</div>
+					<div class="regist-submit" @click="userRegist()">
+						<span>注册</span>
+					</div>
+					<div class="regist-back">
+						<span @click="toggle()">已有账户？</span>
+					</div>
+				</div>
+			</transition>
 			<p class="home-p-top">再小的个体</p>
 			<p class="home-p-but">也能发出不一样的声音</p>
 			<div class="index-btn">
@@ -46,8 +73,10 @@
 			return {
 				user: {
 					account: '',
-					psw: ''
-				}
+					psw: '',
+					confirm: ''
+				},
+				loginVisible: true
 			}
 		},
 		methods: {
@@ -63,14 +92,40 @@
 					httpService.login(data, function(res) {
 						if(res.success == true) {
 							_self.$message('登陆成功！');
-							setTimeout(function(){
+							setTimeout(function() {
 								ROOT_APP.login(res.token);
-							},2000);
+							}, 2000);
 						} else {
 							_self.$message('账号信息有误！');
 						}
 					});
 				}
+			},
+			userRegist: function() {
+				if(this.user.account == '' || this.user.psw == '' || this.user.confirm == '') {
+					this.$message('请填写完整信息！');
+				} else {
+					if(this.user.psw !== this.user.confirm) {
+						this.$message('密码不一致！');
+					} else {
+						let data = {
+							account: this.user.account,
+							psw: this.user.psw,
+						}
+						const _self = this;
+						httpService.regist(data, function(res) {
+							if(res.success == true) {
+								_self.$message('注册成功！');
+								_self.loginVisible = true;
+							} else {
+								_self.$message(res.msg);
+							}
+						});
+					}
+				}
+			},
+			toggle: function() {
+				this.loginVisible = !this.loginVisible
 			}
 		}
 	}
@@ -99,8 +154,11 @@
 		text-align: center;
 	}
 	
-	.home-login .login-title {
+	.home-login .login-title p {
 		font-size: 18px;
+		color: black!important;
+		line-height: 40px;
+		padding-top: 30px;
 	}
 	
 	.login-btn {
@@ -179,6 +237,69 @@
 	
 	.login-way .way-regist span:hover {
 		cursor: pointer;
+	}
+	
+	.home-regist {
+		position: absolute;
+		top: 15%;
+		right: 150px;
+		width: 350px;
+		height: 500px;
+		background: white;
+		text-align: center;
+	}
+	
+	.home-regist .regist-title p {
+		font-size: 18px;
+		color: black!important;
+		line-height: 40px;
+		padding-top: 30px;
+	}
+	
+	.regist-btn {
+		margin: 20px 20px 0px 20px;
+		background: #F6F6F6;
+		overflow: hidden;
+		padding: 10px;
+	}
+	
+	.regist-btn input {
+		float: left;
+		font-size: 18px;
+		border: none;
+		outline: none;
+	}
+	
+	.regist-btn i {
+		float: left;
+		font-size: 18px;
+		border: none;
+		outline: none;
+	}
+	
+	.regist-btn input {
+		padding-left: 10px;
+		background: #F6F6F6;
+	}
+	
+	.regist-submit {
+		margin: 20px 20px 0px 20px;
+		background: #3582F8;
+		padding: 10px;
+		color: white;
+	}
+	
+	.regist-submit:hover {
+		cursor: pointer;
+	}
+	
+	.regist-back {
+		padding: 20px 0px;
+		color: gray;
+	}
+	
+	.regist-back span:hover {
+		cursor: pointer
 	}
 	/*文字排版*/
 	

@@ -31,6 +31,9 @@ import './extend/mixin'
 //base css
 import './static/css/base.css';
 
+//animate.css
+import 'animate.css'
+
 
 //vuex
 import store from './vuex'
@@ -49,6 +52,7 @@ window.ROOT_APP = new Vue({
   	logout:function(){
   		localStorage.clear();
   		this.$store.dispatch('loginStatus',false);
+  		this.$message('账号注销成功！');
   		this.goto('/');
   	}
   },

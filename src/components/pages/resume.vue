@@ -19,7 +19,12 @@
 									<span>H5软件开发工程师&前端工程师</span>
 								</div>
 								<div class="resume-item-des">
-									<p>熟悉HTML,CSS,JS,类库jQuery，AJAX,UI框架Bootstrap；熟悉DIV+CSS布局,响应式布局;熟悉MVVM框架Vuejs react react native,UI框架element mint vux;使用webpack vuejs vuex vue-router axios开发webapp;熟悉git版本控制工具</p>
+									<p>
+										H5 APP软件开发：靓象顾问（内部群体使用），主要商城商品展示，用户订单信息推送，用户信息维护，微信授权登陆等，使用vuejs系列技术栈和hbuilder
+									</p>
+									<p>
+										靓象商城4slx.com：负责更新维护建材商城平台网站
+									</p>
 								</div>
 							</div>
 							<div class="resume-item">
@@ -120,6 +125,13 @@
 				</div>
 				<div class="inner-right">
 					<div class="inner-right-box">
+						<div class="box-img">
+							<img src="../../static/images/resume_right_cartoon.png"/>
+						</div>
+						<div class="box-code">
+							<img src="../../static/images/resume_right_code.png"/>
+							<p>微信扫我</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -268,7 +280,19 @@
 	.box-inner .inner-right .inner-right-box {
 		margin-left: 20px;
 		height: 1200px;
-		background: RGB(15, 16, 17);
+		background: #4C3A4A;
 		text-align: center;
+	}
+	.box-inner .inner-right .inner-right-box .box-code{
+		padding:20px 0px;
+	}
+	.box-inner .inner-right .inner-right-box .box-code img{
+		width:60%;
+		border:1px solid white;
+	}
+	.box-inner .inner-right .inner-right-box .box-code p{
+		line-height: 50px;
+		color:white;
+		font-size: 18px;
 	}
 </style>

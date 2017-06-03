@@ -9,7 +9,7 @@
 					<el-menu-item index="2-2">发表日志</el-menu-item>
 					<el-menu-item index="2-3" @click.native="logout()">注销</el-menu-item>
 				</el-submenu>
-				<el-menu-item index="3">关于作者</el-menu-item>
+				<el-menu-item index="3" @click.native="notify({title:'提示',msg:'没有权限访问',type:'warning'})">关于作者</el-menu-item>
 				<el-menu-item index="4" @click.native="goto('/resume')">我的简历</el-menu-item>
 				<li class="left">
 					<i class="iconfont" @click="goto('/index')">&#xe6f9;</i>
@@ -42,7 +42,7 @@
 				<dl>
 					<dt>开放源码</dt>
 					<dd>
-						<a href="#" target="_blank">github地址</a>
+						<a href="https://github.com/NehoDesigner" target="_blank">github地址</a>
 					</dd>
 					<dd>oschina地址</dd>
 					<dd>百度云</dd>
@@ -60,7 +60,11 @@
 				</dl>
 			</div>
 		</div>
-		<footer></footer>
+		<footer>
+			<div class="width">
+				<i class="iconfont" @click="link('https://github.com/NehoDesigner')">&#xe63f;</i>
+			</div>
+		</footer>
 	</div>
 </template>
 
@@ -166,5 +170,13 @@
 	footer {
 		height: 120px;
 		background: #324057;
+	}
+	footer i{
+		line-height: 120px;
+		font-size: 50px!important;
+		color:white;
+	}
+	footer i:hover{
+		cursor: pointer;
 	}
 </style>

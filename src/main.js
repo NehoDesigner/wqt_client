@@ -38,6 +38,8 @@ import 'animate.css'
 //vuex
 import store from './vuex'
 
+
+
 window.ROOT_APP = new Vue({
   el: '#app',
     router,

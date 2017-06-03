@@ -8,7 +8,7 @@ export default {
 		// 请求方法同上
 		method: 'post', // default
 		// 基础url前缀
-		baseURL: 'http://localhost:90/',
+		baseURL: window.ENV === 'dev'?'http://localhost:90/':'http://wqt.trade/',
 
 		transformRequest: [function(data) {
 			// 这里可以在发送请求之前对请求数据做处理
@@ -34,6 +34,6 @@ export default {
 		//设置超时时间
 		timeout: 100000,
 		//返回数据类型
-		responseType: 'json', // default
+		responseType: 'json'// default
 	}
 }
